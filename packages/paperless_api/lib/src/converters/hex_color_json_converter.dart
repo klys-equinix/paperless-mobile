@@ -10,6 +10,7 @@ class HexColorJsonConverter implements JsonConverter<Color?, dynamic> {
       return json;
     }
     if (json is String) {
+      if (json.isEmpty) return null;
       final decoded = int.tryParse(json.replaceAll("#", "ff"), radix: 16);
       if (decoded == null) {
         return null;

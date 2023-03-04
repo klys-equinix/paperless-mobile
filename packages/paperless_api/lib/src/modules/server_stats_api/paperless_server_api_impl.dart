@@ -6,20 +6,22 @@ import 'package:paperless_api/src/models/paperless_server_exception.dart';
 import 'package:paperless_api/src/models/paperless_server_information_model.dart';
 import 'package:paperless_api/src/models/paperless_server_statistics_model.dart';
 
-import 'paperless_server_stats_api.dart';
+import 'paperless_server_api.dart';
 
 ///
 /// API for retrieving information about paperless server state,
 /// such as version number, and statistics including documents in
 /// inbox and total number of documents.
 ///
-class PaperlessServerStatsApiImpl implements PaperlessServerStatsApi {
+class PaperlessServerApiImpl implements PaperlessServerApi {
   final Dio client;
 
-  PaperlessServerStatsApiImpl(this.client);
+  PaperlessServerApiImpl(this.client);
+
+  
 
   @override
-  Future<PaperlessServerInformationModel> getServerInformation() async {
+  Future<PaperlessServerInformationModel> getServerSettings() async {
     final response = await client.get("/api/ui_settings/");
     final version = response
             .headers[PaperlessServerInformationModel.versionHeader]?.first ??
