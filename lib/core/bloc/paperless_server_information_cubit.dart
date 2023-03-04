@@ -10,7 +10,7 @@ class PaperlessServerInformationCubit
       : super(PaperlessServerInformationState());
 
   Future<void> updateInformtion() async {
-    final information = await _api.getServerInformation();
+    final information = await _api.getServerSettings();
     emit(PaperlessServerInformationState(
       isLoaded: true,
       information: information,

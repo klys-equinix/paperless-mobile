@@ -92,7 +92,7 @@ void main() async {
   final authApi = PaperlessAuthenticationApiImpl(sessionManager.client);
   final documentsApi = PaperlessDocumentsApiImpl(sessionManager.client);
   final labelsApi = PaperlessLabelApiImpl(sessionManager.client);
-  final statsApi = PaperlessServerStatsApiImpl(sessionManager.client);
+  final statsApi = PaperlessServerApi(sessionManager.client);
   final savedViewsApi = PaperlessSavedViewsApiImpl(sessionManager.client);
   final tasksApi = PaperlessTasksApiImpl(
     sessionManager.client,
@@ -210,7 +210,7 @@ class _PaperlessMobileEntrypointState extends State<PaperlessMobileEntrypoint> {
       providers: [
         BlocProvider(
           create: (context) => PaperlessServerInformationCubit(
-            context.read<PaperlessServerStatsApi>(),
+            context.read<PaperlessServerApi>(),
           ),
         ),
       ],
