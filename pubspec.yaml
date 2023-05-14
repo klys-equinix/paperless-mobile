@@ -92,6 +92,9 @@ dependencies:
   flutter_html: ^3.0.0-alpha.6
   in_app_review: ^2.0.6
 
+dependency_overrides:
+  intl: 0.17.0
+
 dev_dependencies:
   integration_test:
     sdk: flutter
