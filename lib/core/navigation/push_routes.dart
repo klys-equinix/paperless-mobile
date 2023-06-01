@@ -348,6 +348,7 @@ Future<DocumentUploadResult?> pushDocumentUploadPreparationPage(
           create: (_) => DocumentUploadCubit(
             context.read(),
             context.read(),
+            context.read(),
           ),
           child: DocumentUploadPreparationPage(
             fileBytes: bytes,

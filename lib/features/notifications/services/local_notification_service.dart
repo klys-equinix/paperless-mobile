@@ -90,6 +90,50 @@ class LocalNotificationService {
     ); //TODO: INTL
   }
 
+  Future<void> notifyFileSaved({
+    required String filename,
+    required String filePath,
+    required bool finished,
+    required String locale,
+  }) async {
+    final tr = await S.delegate.load(Locale(locale));
+
+    await _plugin.show(
+      filePath.hashCode,
+      filename,
+      finished
+          ? tr.notificationDownloadComplete
+          : tr.notificationDownloadingDocument,
+      NotificationDetails(
+        android: AndroidNotificationDetails(
+          NotificationChannel.documentDownload.id + "_$filename",
+          NotificationChannel.documentDownload.name,
+          ongoing: !finished,
+          indeterminate: true,
+          importance: Importance.max,
+          priority: Priority.high,
+          showProgress: !finished,
+          when: DateTime.now().millisecondsSinceEpoch,
+          category: AndroidNotificationCategory.progress,
+          icon: finished ? 'file_download_done' : 'downloading',
+        ),
+        iOS: DarwinNotificationDetails(
+          attachments: [
+            DarwinNotificationAttachment(
+              filePath,
+            ),
+          ],
+        ),
+      ),
+      payload: jsonEncode(
+        OpenDownloadedDocumentPayload(
+          filePath: filePath,
+        ).toJson(),
+      ),
+    ); //TODO: INTL
+  }
+
+
   //TODO: INTL
   Future<void> notifyTaskChanged(Task task) {
     log("[LocalNotificationService] notifyTaskChanged: ${task.toString()}");

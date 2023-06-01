@@ -5,6 +5,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:paperless_api/paperless_api.dart';
 import 'package:paperless_mobile/core/repository/label_repository.dart';
+import 'package:paperless_mobile/features/notifications/services/local_notification_service.dart';
+import 'package:paperless_mobile/core/service/file_service.dart';
 
 part 'document_upload_state.dart';
 
@@ -13,7 +15,9 @@ class DocumentUploadCubit extends Cubit<DocumentUploadState> {
 
   final LabelRepository _labelRepository;
 
-  DocumentUploadCubit(this._labelRepository, this._documentApi)
+  final LocalNotificationService _notificationService;
+
+  DocumentUploadCubit(this._labelRepository, this._documentApi, this._notificationService)
       : super(const DocumentUploadState()) {
     _labelRepository.addListener(
       this,
@@ -46,6 +50,18 @@ class DocumentUploadCubit extends Cubit<DocumentUploadState> {
       tags: tags,
       createdAt: createdAt,
       asn: asn,
+    );
+  }
+
+  Future<void> saveLocally(
+      Uint8List bytes, String fileName, String preferredLocaleSubtag
+      ) async {
+    var file = await FileService.saveToFile(bytes, fileName);
+    _notificationService.notifyFileSaved(
+      filename: fileName,
+      filePath: file.path,
+      finished: true,
+      locale: preferredLocaleSubtag,
     );
   }
 
