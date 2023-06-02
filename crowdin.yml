@@ -1,12 +1,8 @@
-"project_id": "568557"
-"api_token": "0399954833e815ca34dbf73bdfbdb835a41e08416048294baac2418464c647940467eab43980b5f7"
-
-"preserve_hierarchy": true
-
 files: [
-  {
-    "source" : "/lib/l10n/intl_en.arb",
-    "translation" : "/lib/l10n/intl_%two_letters_code%.arb",
-    "type" : "arb",
-  }
+ {
+  "source" : "/lib/l10n/intl_en.arb",
+  "translation" : "/lib/l10n/intl_%two_letters_code%.arb",
+  "type" : "arb",
+ }
 ]
+# Add your credentials here
